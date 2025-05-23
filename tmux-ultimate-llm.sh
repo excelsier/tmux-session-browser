@@ -33,6 +33,7 @@ show_menu() {
     echo -e "  ${GREEN}6${NC} 👁️ ${YELLOW}Analyze Claude Sessions${NC} - See what Claude is working on"
     echo -e "  ${GREEN}7${NC} 👀 ${YELLOW}Preview LLM Naming${NC} - See LLM analysis without changes"
     echo -e "  ${GREEN}8${NC} 🗑️ ${YELLOW}Clear LLM Cache${NC} - Reset analysis cache"
+    echo -e "  ${GREEN}9${NC} 🔄 ${YELLOW}Fix Terminal Titles${NC} - Sync terminal tabs with session names"
     echo ""
     echo -e "  ${GREEN}h${NC} 📖 ${YELLOW}Help${NC} - Show detailed information"
     echo -e "  ${GREEN}q${NC} 🚪 ${YELLOW}Quit${NC}"
@@ -204,6 +205,16 @@ clear_llm_cache() {
     fi
 }
 
+fix_terminal_titles() {
+    echo -e "${BLUE}🔄 Fixing Terminal Titles...${NC}"
+    if [ -f "$SCRIPT_DIR/fix-terminal-titles.sh" ]; then
+        "$SCRIPT_DIR/fix-terminal-titles.sh"
+    else
+        echo -e "${RED}❌ Error: fix-terminal-titles.sh not found${NC}"
+        exit 1
+    fi
+}
+
 # Main interactive loop
 main() {
     # If run with arguments, execute directly
@@ -238,6 +249,10 @@ main() {
             ;;
         "clear-cache")
             clear_llm_cache
+            exit 0
+            ;;
+        "fix-titles"|"fix-terminal-titles")
+            fix_terminal_titles
             exit 0
             ;;
         "help"|"-h"|"--help")
@@ -290,6 +305,11 @@ main() {
                 ;;
             "8")
                 clear_llm_cache
+                echo ""
+                read -p "Press Enter to continue..."
+                ;;
+            "9")
+                fix_terminal_titles
                 echo ""
                 read -p "Press Enter to continue..."
                 ;;

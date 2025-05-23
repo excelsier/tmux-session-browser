@@ -299,6 +299,22 @@ llm_enhanced_naming() {
         detect_claude_with_llm "$@"
     }
     
+    # Function to refresh terminal titles after renaming
+    refresh_terminal_titles() {
+        echo -e "${CYAN}🔄 Refreshing terminal titles...${NC}"
+        
+        # Force refresh for all sessions
+        tmux refresh-client -S 2>/dev/null || true
+        
+        # Update current session title
+        local current_session=$(tmux display-message -p '#S' 2>/dev/null)
+        if [ -n "$current_session" ]; then
+            printf '\033]0;tmux: %s\007' "$current_session" 2>/dev/null || true
+        fi
+        
+        echo -e "${GREEN}✅ Terminal titles refreshed${NC}"
+    }
+    
     # Run the smart naming with LLM enhancement
     case "${1:-rename}" in
         "dry-run")
@@ -315,6 +331,9 @@ llm_enhanced_naming() {
                 smart_rename_session "$session" false
                 echo ""
             done
+            
+            # Refresh terminal titles after all renaming is done
+            refresh_terminal_titles
             ;;
         *)
             interactive_mode

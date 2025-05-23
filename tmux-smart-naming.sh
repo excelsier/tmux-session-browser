@@ -261,6 +261,10 @@ smart_rename_session() {
             tmux rename-session -t "$session" "$new_session_name"
             echo -e "${GREEN}Session renamed: $session -> $new_session_name${NC}"
             session="$new_session_name" # Update for window renaming
+            
+            # Force terminal title refresh
+            tmux refresh-client -S 2>/dev/null || true
+            printf '\033]0;tmux: %s\007' "$new_session_name" 2>/dev/null || true
         fi
     fi
     
