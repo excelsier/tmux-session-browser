@@ -70,12 +70,42 @@ bind-key C-s new-window -n "sessions" '/path/to/tmux-session-browser/tmux-sessio
 tmux source-file ~/.tmux.conf
 ```
 
+## 🔄 NEW: Automatic LLM Renaming
+
+Keep your sessions automatically named based on their content! Multiple options available:
+
+### Quick Setup
+```bash
+./setup-auto-rename.sh
+```
+
+Choose from:
+- **Daemon** - Background service, renames every 5 minutes
+- **Hooks** - Automatic renaming on session switches
+- **Cron** - Scheduled intervals
+- **Manual** - On-demand with keybindings
+
+### Daemon Control
+```bash
+# Start auto-renaming daemon
+./tmux-auto-llm-daemon.sh start
+
+# Check status
+./tmux-auto-llm-daemon.sh status
+
+# Stop daemon
+./tmux-auto-llm-daemon.sh stop
+
+# Custom interval (10 minutes)
+TMUX_LLM_INTERVAL=600 ./tmux-auto-llm-daemon.sh start
+```
+
 ## Usage
 
 ### 🧠 LLM Ultimate Mode (Revolutionary!)
 ```bash
 ./tmux-ultimate-llm.sh
-# or within tmux: prefix + U (uppercase)
+# or within tmux: prefix + i (changed from U)
 ```
 **AI-powered session analysis** + smart renaming + browsing. See exactly what each Claude session is working on!
 
@@ -108,11 +138,13 @@ Smart renaming + session browsing combined (no LLM required).
 ```
 
 #### Within tmux
-- `prefix + U` - **LLM Ultimate mode** (revolutionary!)
+- `prefix + i` - **LLM Ultimate mode** (revolutionary!)
 - `prefix + u` - **Basic Ultimate mode** (recommended)
 - `prefix + s` - Popup overlay (90% screen)
 - `prefix + S` - Side pane (40% width)  
 - `prefix + Ctrl-s` - New window
+- `prefix + b` - **Toggle sidebar** with LLM summaries
+- `prefix + R` - **Quick LLM rename** all sessions
 
 ### Controls
 - **Navigate**: Arrow keys or `j`/`k`
