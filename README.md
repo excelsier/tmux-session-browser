@@ -1,6 +1,17 @@
 # Tmux Session Browser
 
-An intelligent tmux session management suite with **smart auto-naming**, **multi-select browsing**, **device detection**, and **terminal output preview**. The ultimate solution for organizing and managing tmux sessions, especially with **Claude Code integration**.
+🚀 **Revolutionary tmux session management** with **LLM-powered content analysis**, **smart auto-naming**, **multi-select browsing**, and **device detection**. The first tmux tool that actually understands what your Claude Code sessions are working on!
+
+## 🧠 NEW: LLM-Powered Analysis
+
+**Finally know what each Claude session is doing!** Instead of generic names like "session1", get specific descriptions based on actual conversation content:
+
+- `♦debug-react-auth` - Debugging React authentication 
+- `♦build-api-endpoints` - Building REST API endpoints
+- `♦fix-typescript-errors` - Fixing TypeScript issues
+- `♦refactor-database` - Database refactoring work
+
+**Powered by local Ollama** - private, fast, and incredibly accurate.
 
 ## Features
 
@@ -61,18 +72,32 @@ tmux source-file ~/.tmux.conf
 
 ## Usage
 
-### 🚀 Ultimate Mode (Recommended)
+### 🧠 LLM Ultimate Mode (Revolutionary!)
+```bash
+./tmux-ultimate-llm.sh
+# or within tmux: prefix + U (uppercase)
+```
+**AI-powered session analysis** + smart renaming + browsing. See exactly what each Claude session is working on!
+
+### 🚀 Basic Ultimate Mode
 ```bash
 ./tmux-ultimate.sh
 # or within tmux: prefix + u
 ```
-Interactive menu with smart renaming + session browsing combined.
+Smart renaming + session browsing combined (no LLM required).
 
 ### Individual Tools
 
-#### Smart Auto-Naming
+#### LLM-Powered Naming
 ```bash
-./tmux-smart-naming.sh          # Rename all sessions/windows
+./tmux-llm-naming.sh analyze    # Analyze Claude sessions with AI
+./tmux-llm-naming.sh dry-run    # Preview LLM-enhanced naming  
+./tmux-llm-naming.sh rename     # Apply LLM-powered names
+```
+
+#### Basic Smart Naming
+```bash
+./tmux-smart-naming.sh          # Pattern-based naming
 ./tmux-smart-naming.sh dry-run  # Preview changes
 ./tmux-smart-naming.sh watch    # Auto-rename every 30s
 ```
@@ -83,7 +108,8 @@ Interactive menu with smart renaming + session browsing combined.
 ```
 
 #### Within tmux
-- `prefix + u` - **Ultimate mode** (recommended)
+- `prefix + U` - **LLM Ultimate mode** (revolutionary!)
+- `prefix + u` - **Basic Ultimate mode** (recommended)
 - `prefix + s` - Popup overlay (90% screen)
 - `prefix + S` - Side pane (40% width)  
 - `prefix + Ctrl-s` - New window
@@ -94,33 +120,48 @@ Interactive menu with smart renaming + session browsing combined.
 - **Confirm**: Enter to kill selected sessions
 - **Quit**: `q` or Escape
 
-## Smart Naming Examples
+## LLM vs Basic Naming Examples
 
-### Before
+### Before (Generic)
 ```
 Sessions: work, dev, testing, 20
 Windows: zsh, code, git, files
 ```
 
-### After Smart Renaming
+### After Basic Smart Naming
 ```
 Sessions: ♦bookeper-accounting, ♦my-app, 🏠home
 Windows: ♦bookeper-accounting, 🔀my-app, 📦frontend, 🏠home
 ```
 
+### After LLM-Powered Naming 🧠
+```
+Sessions: ♦debug-react-auth, ♦build-user-api, ♦fix-db-migration
+Windows: ♦debug-react-auth, 🔀git-rebase, 📦npm-install
+```
+
+**The LLM difference:** Instead of just knowing it's a "bookeper-accounting" project, you know you're specifically "debugging React authentication issues"!
+
 **Legend:**
-- ♦ = Claude Code sessions
-- 📝 = Editors (vim, nvim, etc.)
-- 🔀 = Git operations  
-- 📦 = Package managers (npm, yarn)
-- 🐍 = Python, 🟢 = Node.js, 🦀 = Rust, 🐹 = Go
+- ♦ = Claude Code sessions (with specific task context via LLM)
+- 📝 = Editors, 🔀 = Git, 📦 = Package managers
+- 🐍 = Python, 🟢 = Node.js, 🦀 = Rust, 🐹 = Go  
 - 🏠 = Home directory/shell sessions
 
 ## Requirements
 
-- tmux
-- fzf (fuzzy finder)
-- Basic Unix utilities (awk, sed, sort)
+### Core
+- **tmux** - Terminal multiplexer
+- **fzf** - Fuzzy finder for interactive browsing
+- **Basic Unix utilities** (awk, sed, sort)
+
+### For LLM Features  
+- **Ollama** - Local LLM runtime ([ollama.ai](https://ollama.ai))
+- **llama3.2 model** - Auto-installed on first use
+- **2GB+ RAM** recommended for LLM analysis
+
+### Optional
+- **jq** - Better JSON parsing (graceful fallback if missing)
 
 ## Device Detection
 
@@ -135,6 +176,34 @@ Detection is based on terminal dimensions and client count.
 
 MIT License - see LICENSE file for details
 
+## 🧠 LLM Features Deep Dive
+
+The LLM-powered analysis is a game-changer for Claude Code users. See **[README-LLM.md](README-LLM.md)** for comprehensive documentation including:
+
+- How content analysis works
+- Performance and caching details  
+- Customization options
+- Comparison with basic naming
+- Best practices for Claude Code workflows
+
+**Quick start with LLM:**
+```bash
+# Install Ollama
+curl -fsSL https://ollama.ai/install.sh | sh
+
+# Test LLM analysis  
+./tmux-llm-naming.sh analyze
+
+# Use LLM Ultimate mode
+./tmux-ultimate-llm.sh
+```
+
 ## Contributing
 
 Pull requests welcome! Please ensure scripts are tested with various tmux configurations.
+
+**Areas for contribution:**
+- Additional LLM models support
+- Better project type detection
+- Enhanced terminal content extraction  
+- Performance optimizations
